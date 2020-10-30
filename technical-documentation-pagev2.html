@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Meta -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="technical-documetation-page">
+  <meta name="author" content="Bafokeng Maile">
+
+  <!-- Styles sheets -->
+  <link rel="stylesheet" type="text/css" href="technical-documentation-pageV2.css">
+  <link rel="stylesheet" type="text/css" href="css.css">
+  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+
+  <!-- Title -->
+  <title>Technical Documetation Page</title>
+
+</head>
+<body>
+      <div id="box-container">
+		<!-- https://www.w3schools.com/howto/howto_js_sidenav.asp  remember to reference. -->
+		<div id="mySidenav" class="sidenav">
+		  <nav id="navbar">
+			  <header id="header">Shell Scripts Documentation</header>
+			  <a class="nav-link" href="#Shell_Scripts_in_a_Nutshell">Shell Scripts in a Nutshell</a>
+			  <a class="nav-link" href="#Editing_Shell_Scripts">Editing Shell Scripts</a>
+			  <a class="nav-link" href="#Scripting_Basics">Scripting Basics</a>
+			  <a class="nav-link" href="#Variables">Variables</a>
+			  <a class="nav-link" href="#Conditionals">Conditionals</a>
+			  <a class="nav-link" href="#Reference">Reference</a>
+		 </nav>
+	  </div>
+
+    <div id="js-content">
+			<main id="main-doc">
+				<section class="main-section" id="Shell_Scripts_in_a_Nutshell">
+					<header><h3>Shell Scripts in a Nutshell<h3></header>
+					<p>A <span>shell script</span> is a file of executable commands that has been stored in a text file.
+						When the file is run, each command is executed. Shell Scripts have access to all the commands
+						of the shell, including logic. A script can therefore test for the presence of a file or look
+						for a particular output and change its behavior accordingly. You can build scripts to automate
+						repetitive parts of your work, which frees your time and ensures consistency each time you use the script.
+						For instance, if you run the same five commands every day, you can turn them into a shell script that
+						reduces your work to one command. <br><br>
+
+						A script can be as simple as one command:
+					</p>
+					<code> echo &quot;Hello, World&excl;&quot; </code><br>
+					<p>
+					The script, <span>test.sh</span>, consist of just one line that prints <span>&quot;Hello, World&excl;&quot;</span> to the console.
+					</p>
+					<p>
+					Running a script can be done by passing it as an argument to your shell or by running it directly:
+					</p>
+					<code>sysadmin@localhost: ~$ sh test.sh<br>Hello, World&excl;<br>sysadmin@localhost: ~$./test.sh<br>-bash: ./test.sh: Permission denied<br>sysadmin@localhost: ~$ chmod +x ./test.sh<br>sysadmin@localhost: ~$./test.sh<br><br>Hello, World&excl;</code>
+					<p>
+						In the example above, first, the script is run an argument to the shell. Next, the script is run directly
+						from the shell. It is rare to have the current directory in the binary search path <span>$PATH</span> so the name
+						is prefixed with <b>./</b> to indicate it should be run out of the current directory.<br><br>
+
+						The error <span>Permision denied</span> means that the script has not been marked as exacutable. A quick <span>chmod</span>
+						later and the script works. <span>chmod</span> is used to change permissions of a file.<br><br>
+
+						There are various shells with their own language syntax. Therefore, more complicated scripts will indicate a
+						particular shell by specifying the absolute path to the interpreter as the first line, prefixed #! as shown:
+					</p>
+					<code>#&excl;/bin/sh<br>&quot;Hello, World&excl;&quot;<br>or<br>#&excl;/bin/bash<br>&quot;Hello, World&excl;&quot;</code>
+					<p>
+						The two characters, #&excl; are traditionally called the hash and the bang respectively, which leads to the
+						shortend form of &quot;shebang&quot; when they're used at the beginning of a script.<br><br>
+
+						Incidentally, the shebang (or crunchbang) is used for traditional shell scripts and other text-based languages
+						like perl, Ruby, and Python. Any text file marked as executable will be run under the interpreter specified in
+						the first line as long as the script is run directly. If the script is invoked direectly as an argument to an
+						interpreter, such as <span>sh script</span> or <span>bash script</span>, the given shell will be used  no matter what's
+						in the shebang line.<br><br>
+
+						It helps to become comfortable using the text editor before writing shell scripts, since you will need to create
+						files in plain text. Traditional office tools like LibreOffice that output file formats containing formatting and
+						other information are not appropriate for this task.
+					</p>
+
+				</section>
+				<section class="main-section" id="Editing_Shell_Scripts">
+					<header><h3>Editing Shell Scripts<h3></header>
+						<p>
+							Unix has many text editors, the merits of one over the other are often hotly debated. The GNU nano editor is
+							a very simple editor well suited to editing small text files. The Visual Editor, <span>vi</span>, or its newer
+							version, VI improved (<span>vim</span>), is a remarkably powerful editor but has steep learning curve. We'll focus
+							<span>nano</span><br><br>
+
+							Open a shell terminal and type <span>nano test.sh</span>, you'll see a screen similar to this:<br><br>
+						</p>
+						<code>GNU nano 2.2.6                   File: test.sh               modified<br>#&excl;/bin/sh<br>echo &quot;Hello, World&excl;&quot;<br>echo -n &quot;the time is &quot;<br>date<br>^G Get Help  ^O WriteOut  ^R Read File ^Y Prev page  ^K Cut Text  ^C Cur Po<br>^X Exit ^Justify  ^W Where Is  ^V Next Page  ^U Uncut Text  ^T To Spell</code>
+						<p>
+							Note that the bottom-left option is ^X which means &quot; press <strong>control</strong> and <strong>X</strong>
+							 to exit&quot;. Press <strong>Crtl</strong> and <strong>X</strong> together and the bottom will change:
+						</p>
+						<code>Save modified buffer (ANSWERING &quot;NO&quot; WILL DESTROY CHANGES) ?<br>Y yes<br>N no     ^C cancel</code>
+						<p>
+							At this point, you can exit the program without saving by pressing the <strong>N</strong> key, or save first by
+							pressing <strong>Y</strong> to save. The default is to save the file with the current file name. You can press the
+							<strong>Enter</strong> key to save and exit.<br><br>
+
+							You will be back at the shell prompt after saving. Return to the editor. This time press <strong>Crtl</strong> and
+							<strong>O</strong> together or save your work without exiting the editor. The prompts are largely the same, except
+							thet you're back in the editor.<br><br>
+
+							This time use the arrow keys to move your cursor to the line that has &quot;The time is&quot;. Press <strong>Crtl</strong>
+							 and <strong>K</strong> twice to cut the last two lines of the copy buffer. Move your cursor to the remaining line and
+							 press <strong>Crtl</strong> and <strong>U</strong> once to paste the copy buffer to the current position. This makes
+							 the scripts echo the current time before greeting you and saved you needing to re-type the lines.<br><br>
+
+							Other helpful commands you might need are:<br><br>
+
+						</p>
+
+						<ul>
+							<li><strong>Crtl + W</strong>     Search the document</li>
+							<li><strong>Crtl + W</strong>  then  <strong>Crtl + R</strong>     Search and replace</li>
+							<li><strong>Crtl + G</strong>     Show all commands possible</li>
+							<li><strong>Crtl + Y/V</strong>     Page up / down</li>
+							<li><strong>Crtl + C</strong>     show the current position in the file and the file's size</li>
+						</ul>
+
+
+				</section>
+				<section class="main-section" id="Scripting_Basics">
+					<header><h3>Scripting Basics</h3></header>
+						<p>
+							You got your first taste of scripting where we introduced a very basic script that ran a single command.
+							The script started with the shebang line, telling Linux that /bin/bash (which is bash) is to be used to
+							execute the script.<br><br>
+
+							Other than running commands, there are 3 topics you must become familiar with:
+            </p>
+						<ul>
+							<li> Variables, which hold temporary information in the script</li>
+							<li> Conditionals, which let you do different things based on tests you write</li>
+							<li> Loops, which let you do the same thing over and over</li>
+						</ul>
+				</section>
+				<section class="main-section" id="Variables">
+          <header><h3>Variables</h3></header>
+          <p>variables are a key part of any programming language. A very simple use of variables is used here:</p>
+          <code>ANIMAL=&quot;penguin&quot;<br>echo &quot;My favorite animal is a $ANIMAL&quot;</code>
+          <p>
+            After the shebang line is a directive to assign some text to a variable. The variable name is ANIMAL and
+            the equals sign assigns the string <span>penguin</span>. Think of a variable as a box where you can store
+            things. After executing this line, the box called <span>ANIMAL</span> contains the word <span>penguin</span>.
+          </p>
+          <p>
+            It is important that there are no spaces between the name of the variable, the equals sign, and the item to
+            be assigned to the variable. If you have a space there, you will get an odd error such as <span>&quot;command
+              not found&quot;</span>. Capitalizing the name of the variable is not necessary but it is a useful convention
+              to separate variables from commands to be executed.
+          </p>
+          <p>
+            Next, the script echos a string to the console. The string contains the name of the variable preceded by a
+            dollar sign. When the interpreter sees that dollar sign it recognizes that it will be substituting the
+            contents of the variable, which is called <span>interpolation</span>. The output of the scriptis then
+            <span> My favorite animal is a penguin</span>.
+          </p>
+          <p>
+            So remember this: to assign to a variable, just use the name of the variable, prefix it with a dollar sign.
+            Here,  we show a variable being assigned the contents of another variable&excl;
+          </p>
+          <code>#!/bin/bash<br>ANIMAL=penguin<br>SOMETHING=$ANIMAL<br>echo &quot;My favorite animal is a $OMETHING</code>
+          <p>
+            <span>ANIMAL</span> contains the string <span>penguin</span> (as there are no spaces, the alternative syntax
+            without using quotes is shown). <span>SOMETHING</span> is then assigned the contents of <span>ANIMAL</span>
+            ( because <span>ANIMAL</span> has the dollar sign in front of it).
+          </p>
+          <p>
+            If you wanted, you could assign an interpolated string to a variable. This is quite common in larger scripts,
+            as you can build up a larger command and execute it&excl;
+          </p>
+          <p>
+            Another way to assign to a variable is to use the output of another command as the contents of the variable
+            by enclosing the command in back ticks:
+          </p>
+          <code>#!/bin/bash<br>CURRENT_DIRECTORY=`pwd`<br>echo &quot;You are are in $CURRENT_DIRECTORY&quot;</code>
+          <P>
+            This pattern is often used to process text. You might take text from one variable or an input file and
+             pass it through another command like <span>sed</span> or <span>awk</span> to extract certain parts and keep the result in a variable.<br><br>
+            Another way to assign to a variable is to use the output of another command as the contents of the variable
+             by enclosing the command in back ticks:
+          </P>
+          <code>#!/bin/bash<br>echo -n &quot;What is your name? &quot;<br>read NAME<br>echo &quot;Hello $NAME&excl; &quot;</code>
+          <p>The <span>read</span> command can accept a string right from the keyboard or as part of command redirection like you learned in
+            the last chapter.<br><br>
+            There are some special variables in addition to the ones you set. You can pass arguments to your script:
+          </p>
+          <code>#!/bin/bash<br>echo -n &quot;Hello $1 &quot;</code>
+          <p>
+            A dollar sign followed by a number N corresponds to the Nth argument passed to the script. If you call the example above with
+             <span>./test.sh</span> the output will be Hello Linux. The $0 variable contains the name of the script itself.<br><br>
+
+            After a program runs, be it a binary or a script, it returns an exit code which is an integer between 0 and 255.
+            You can test this through the $? variable to see if the previous command completed successfully.
+          </p>
+          <code>sysadmin@localhost: ~$ grep -q root /etc/passwd<br>sysadmin@localhost: ~$ echo $?<br>0<br>sysadmin@localhost:~$ grep -q slartibarfast /etc/passwd<br>sysadmin@localhost: ~$ echo $?</code>
+          <p>
+            The <span>grep</span> command was used to look for a string within a file with the <span>–q</span> flag, which means &quot;quiet&quot;. The <span>grep</span>,
+            while running in quiet mode, returns 0 if the string was found and 1 otherwise. This information can be used in a conditional
+            to perform an action based on the output of another command.<br><br>
+
+            Likewise you can set the exit code of your own script with the <span>exit</span> command:
+          </p>
+          <code>#!/bin/bash<br># Something bad happend&excl;<br>exit 1</code>
+          <p>
+            The example above shows a comment #. Anything after the hash mark is ignored which can be used to help the
+            programmer leave notes. The <span>exit 1</span> returns exit code 1 to the caller. This even works in the shell, if you
+             run this script from the command line and then type <span>echo $?</span> you will see it returns 1.<br><br>
+
+             By convention, an exit code of 0 means &quot;everything is OK&quot;. Any exit codes greater than 0 mean some kind of error happened,
+             which is specific to the program. Above you saw that <span>grep</span> uses 1 to mean the string
+          </p>
+        </section>
+				<section class="main-section" id="Conditionals">
+          <header><h3>Conditionals</h3></header>
+          <p>
+            Now that you can look at and set variables, it is time to make your script do different functions based on tests, called <i>branching</i>.
+            The if statement is the basic operator to implement branching.<br><br>
+
+            A basic <span>if</span> statement looks like this:
+          </p>
+          <code>if somecommand; then<br> # do this somecommand has an exit code of 0<br>fi</code>
+          <p>
+            The next example will run &quot;somecommand&quot; (actually, everything up to the semicolon) and if the exit code is 0 then the contents up until
+             the closing <span>fi</span> will be run. Using what you know about <span>grep</span>, you can now write a script that does different things based on the presence
+              of a string in the password file:
+          </p>
+          <code>#!/bin/bash<br>if grep -q root /etc/passwd; then<br> echo root is in password file<br>else<br> echo root is missing from the password file<br>fi</code>
+          <p>
+            From previous examples, you might remember that the exit code of <span>grep</span> is 0 if the string is found. The
+            example above uses this in one line to print a message if <span>root</span> is in the password file or a different
+            message if it isn’t. The difference here is that instead of an <span>fi</span> to close off the <span>if</span> block, there’s an <span>else</span>.
+            This lets you do one action if the condition is true, and another if the condition is false. The <span>else</span> block must
+            still be closed with the <span>fi</span> keyword.
+          </p>
+          <p>
+            Other common tasks are to look for the presence of a file or directory and to compare strings and numbers. You might
+            initialize a log file if it doesn’t exist, or compare the number of lines in a file to the last time you ran it. The
+            <span>if</span> command is clearly the one to help here, but what command do you use to make the comparison?<br><br>
+
+            The <span>test</span> command gives you easy access to comparison and file test operators. For example:
+          </p>
+          <table>
+            <tr>
+              <th>command</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td><span>test -f /dev/ttyS0</span></td>
+              <td> 0 if the file exists</td>
+            </tr>
+            <tr>
+              <td><span>test ! –f /dev/ttyS0</span></td>
+              <td>0 if the file doesn’t exist</td>
+            </tr>
+            <tr>
+              <td><span>test –d /tmp</span></td>
+              <td>0 if the directory exist</td>
+            </tr>
+            <tr>
+              <td><span>test –x &acute;which ls&acute;</span></td>
+              <td>substitute the location of ls then test if the user can execute</td>
+            </tr>
+            <tr>
+              <td><span>test 1 –eq 1</span></td>
+              <td>0 if numeric comparison succeeds</td>
+            </tr>
+            <tr>
+              <td><span>test ! 1 –eq 1</span></td>
+              <td>NOT – 0 if the comparison fails</td>
+            </tr>
+            <tr>
+              <td><span>test 1 –ne 1</span></td>
+              <td>Easier, test for numeric inequality</td>
+            </tr>
+            <tr>
+              <td><span>test &quot;a&quot; = &quot;a&quot;</span></td>
+              <td>Easier, test for numeric inequality</td>
+            </tr>
+
+          </table>
+
+        </section>
+		<section class="main-section" id="Reference">
+			<header><h3>Reference</h3></header>
+				 <p> All the documentation in this page is taken from
+				  <a href="https://content.netdevgroup.com/contents/linux-essentials/9/" target="_blank">netdevgroup</a></p>		
+		  </section>
+		</main>
+	</div>
+  </div>
+</body>
+</html>
